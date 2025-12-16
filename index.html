@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consent Form</title>
+</head>
+<body>
+  <h2>Share Location & Photo</h2>
+  <p>
+    By clicking the buttons below, you consent to sharing your
+    location and photo for this purpose.
+  </p>
+
+  <button onclick="getLocation()">Share Location</button>
+  <p id="location"></p>
+
+  <input type="file" accept="image/*" capture="camera" id="photo">
+
+  <button onclick="sendEmail()">Send</button>
+
+<script>
+let lat, lon;
+
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      lat = pos.coords.latitude;
+      lon = pos.coords.longitude;
+      document.getElementById("location").innerText =
+        `Lat: ${lat}, Lon: ${lon}`;
+    },
+    () => alert("Location permission denied")
+  );
+}
+
+function sendEmail() {
+  const file = document.getElementById("photo").files[0];
+  if (!file || !lat) {
+    alert("Please share location and photo first.");
+    return;
+  }
+
+  // handled by email service
+}
+</script>
+</body>
+</html>
 
