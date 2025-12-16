@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Location & Photo Submission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>Consent-Based Submission</h2>
+<p>
+By submitting this form, you agree to share your location and photo.
+</p>
+
+<form action="https://formspree.io/f/abcdwxyz"
+      method="POST"
+      enctype="multipart/form-data">
+
+  <!-- Location fields (filled by JS) -->
+  <input type="hidden" name="latitude" id="lat">
+  <input type="hidden" name="longitude" id="lon">
+
+  <button type="button" onclick="getLocation()">Share Location</button>
+  <p id="status"></p>
+
+  <br><br>
+
+  <!-- Photo -->
+  <label>Take or Upload Photo:</label><br>
+  <input type="file" name="photo" accept="image/*" capture="environment" required>
+
+  <br><br>
+
+  <!-- Extra info -->
+  <input type="text" name="note" placeholder="Optional note">
+
+  <br><br>
+
+  <button type="submit">Send</button>
+</form>
+
+<script>
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      document.getElementById("lat").value = pos.coords.latitude;
+      document.getElementById("lon").value = pos.coords.longitude;
+      document.getElementById("status").innerText =
+        "Location captured ✔";
+    },
+    () => {
+      document.getElementById("status").innerText =
+        "Location permission denied";
+    }
+  );
+}
+</script>
+
+</body>
+</html>
